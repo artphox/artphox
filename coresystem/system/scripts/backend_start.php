@@ -31,9 +31,11 @@ use lib\manager\BackendManager;
 
 $need_navbar = true;
 $need_sidebar = true;
+$need_pages = true;
 require 'data/AdminData.php';
 
 echo BackendManager::getNavbarCode();
 echo BackendManager::getSidebarCode();
+echo BackendManager::getStageCode($slug);
 
 ?>

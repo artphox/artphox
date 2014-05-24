@@ -1,19 +1,23 @@
 <?php
 namespace lib\manager;
 
+use lib\universal\ArtphoxException;
+use lib\model\back\core\ACPPage;
+use lib\model\back\core\ErrorPage;
+
+use \Smarty as Smarty;
+
 class BackendManager extends Manager {
 
 	private static $navbar = array();
 	private static $sidebar = array();
+	private static $pages = array();
 
-	static function createSmarty($functions=true) {
+	static function createSmarty() {
 		$smarty = new Smarty();
 		$smarty->use_include_path = true;
 		$smarty->setTemplateDir('tpl/admin');
 		$smarty->setCompileDir(get_include_path().'tpl_compile');
-		if ($functions) {
-			SmartyConnector::assignFunctions($smarty);
-		}
 		return $smarty;
 	}
 
@@ -27,6 +31,10 @@ class BackendManager extends Manager {
 
 	static function addHiddenSidebarTab($id, $controller) {
 		self::$sidebar[$id] = array(null, $controller);
+	}
+
+	static function addPage($slug, $class) {
+		self::$pages[$slug] = $class;
 	}
 
 	static function getNavbarCode() {
@@ -115,6 +123,41 @@ class BackendManager extends Manager {
 			}
 		}
 		return $translationarr;
+	}
+
+	static function getStageCode($slug) {
+		try {
+			return self::getPageObject($slug)->getCode();
+		} catch (ArtphoxException $ex) {
+			return (new ErrorPage($ex))->getCode();
+		}
+	}
+
+	static function getPageObject($slug) {
+		if (!array_key_exists($slug, self::$pages)) {
+			throw new ArtphoxException('ERR_ACP_404', $slug);
+		}
+		$classname = self::$pages[$slug];
+		if (!is_file(get_include_path().'lib/model/back/modules/'.$classname.'.class.php')) {
+			throw new ArtphoxException('ERR_ACP_CF_NOT_FOUND', $classname);
+		}
+
+		require_once 'lib/model/back/modules/'.$classname.'.class.php';
+
+		//Möglichen Pfad von Klassennamen entfernen
+		$index = strrpos($classname, '/');
+		if ($index === false) $index = 0;
+		else $index += 1;
+		$classname = 'lib\\model\\back\\modules\\'.substr($classname, $index);
+
+		if (!class_exists($classname)) {
+			throw new ArtphoxException('ERR_ACP_CC_NOT_FOUND', $classname);
+		}
+		$object = new $classname($params);
+		if (! ($object instanceof ACPPage)) {
+			throw new ArtphoxException('ERR_ACP_PAGE_WRONG_TYPE', $classname);
+		}
+		return $object;
 	}
 
 }

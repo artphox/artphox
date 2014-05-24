@@ -30,8 +30,7 @@ if (isset($need_sidebar) && $need_sidebar) {
 if (isset($need_pages) && $need_pages) {
 
 	//Set Pages
-	BackendManager::addPage('start', 'StartPage.class.php');
-	BackendManager::addPage('gallery', 'GalleryPage.class.php');
+	BackendManager::addPage('start', 'StartPage');
 	//etc.
 }
 
