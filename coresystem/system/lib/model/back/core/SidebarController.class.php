@@ -1,9 +1,10 @@
 <?php
+namespace lib\model\back\core;
 
 abstract class SidebarController {
 
-	//Should return a SideBar
-	abstract function createSidebar();
+	//Should return a SideBarTree
+	abstract function createSidebarTree();
 
 	//Should return false or the new HTML-Code for the stage
 	abstract function onClick($elementid);

@@ -19,11 +19,12 @@ if (isset($need_navbar) && $need_navbar) {
 if (isset($need_sidebar) && $need_sidebar) {
 
 	//Set Sitebar-Tabs
-	BackendManager::addSidebarTab(0, 'ACP_SIDEBAR_GALLERY', 'GallerySidebarController');
-	BackendManager::addSidebarTab(1, 'ACP_SIDEBAR_PAGES', 'PagesSidebarController');
-	BackendManager::addSidebarTab(2, 'ACP_SIDEBAR_BLOG', 'BlogSidebarController');
-	BackendManager::addHiddenSidebarTab(3, 'StyleSidebarController');
-	BackendManager::addHiddenSidebarTab(4, 'SettingsSidebarController');
+	BackendManager::addSidebarTab(0, 'gallery', 'ACP_SIDEBAR_GALLERY', 'GallerySidebarController');
+	BackendManager::addSidebarTab(1, 'pages', 'ACP_SIDEBAR_PAGES', 'PagesSidebarController');
+	BackendManager::addSidebarTab(2, 'blog', 'ACP_SIDEBAR_BLOG', 'BlogSidebarController');
+	BackendManager::addHiddenSidebarTab(3, 'style', 'StyleSidebarController');
+	BackendManager::addHiddenSidebarTab(4, 'settings', 'SettingsSidebarController');
+	BackendManager::setDefaultSidebarTab(0);
 
 }
 

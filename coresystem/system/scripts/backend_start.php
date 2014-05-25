@@ -34,8 +34,21 @@ $need_sidebar = true;
 $need_pages = true;
 require 'data/AdminData.php';
 
-echo BackendManager::getNavbarCode();
-echo BackendManager::getSidebarCode();
-echo BackendManager::getStageCode($slug);
+try {
+	$smarty = BackendManager::createSmarty();
+	$navbar = BackendManager::getNavbarCode();
+	$sidebardata = BackendManager::getSidebarData($slug);
+	$sidebartabs = BackendManager::getSidebarTabCode();
+	$stage = BackendManager::getStageCode($slug);
+	$smarty->assign('navbar', $navbar);
+	$smarty->assign('sidebardata', $sidebardata);
+	$smarty->assign('sidebartabs', $sidebartabs);
+	$smarty->assign('stage', $stage);
+	$smarty->display('index.tpl');
+} catch (Exception $ex) {
+	die(strval($ex));
+}
+
+
 
 ?>

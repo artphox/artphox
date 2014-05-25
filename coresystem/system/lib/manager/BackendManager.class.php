@@ -4,13 +4,15 @@ namespace lib\manager;
 use lib\universal\ArtphoxException;
 use lib\model\back\core\ACPPage;
 use lib\model\back\core\ErrorPage;
+use lib\model\back\core\SidebarController;
 
 use \Smarty as Smarty;
 
 class BackendManager extends Manager {
 
 	private static $navbar = array();
-	private static $sidebar = array();
+	private static $sidebartabs = array();
+	private static $defaultsidebartab = 0;
 	private static $pages = array();
 
 	static function createSmarty() {
@@ -21,16 +23,21 @@ class BackendManager extends Manager {
 		return $smarty;
 	}
 
+	//Sollte um einen Parameter erweitert werden. Statt $link: $href und $onclick
 	static function addNavbarItem($text, $img, $link) {
 		self::$navbar[] = array($text, $img, $link);
 	}
 
-	static function addSidebarTab($id, $text, $controller) {
-		self::$sidebar[$id] = array($text, $controller);
+	static function addSidebarTab($id, $slug, $text, $controller) {
+		self::$sidebartabs[$id] = array($text, $slug, $controller);
 	}
 
-	static function addHiddenSidebarTab($id, $controller) {
-		self::$sidebar[$id] = array(null, $controller);
+	static function addHiddenSidebarTab($id, $slug, $controller) {
+		self::$sidebartabs[$id] = array(null, $slug, $controller);
+	}
+
+	static function setDefaultSidebarTab($id) {
+		self::$defaultsidebartab = $id;
 	}
 
 	static function addPage($slug, $class) {
@@ -95,25 +102,26 @@ class BackendManager extends Manager {
 		return $translation;
 	}
 
-	static function getSidebarCode() {
+	static function getSidebarTabCode() {
 		$sidebar = self::translateSidebar();
-		echo '<div id="sidebarhead">';
+		$str = '<div id="sidebarhead">';
 		foreach ($sidebar as $sideitem) {
-			echo '<div class="sidebarbutton">'.$sideitem[0].'</div>';
+			$str .= '<div class="sidebarbutton">'.$sideitem[0].'</div>';
 		}
-		echo '</div>';
+		$str .= '</div>';
+		return $str;
 	}
 
 	private static function translateSidebar() {
 		$codearray = array();
-		foreach (self::$sidebar as $sideitem) {
+		foreach (self::$sidebartabs as $sideitem) {
 			if ($sideitem[0] !== null) {
 				$codearray[] = $sideitem[0];
 			}
 		}
 		self::loadLanguageTexts($codearray);
 		$translationarr = array();
-		foreach (self::$sidebar as $sideitem) {
+		foreach (self::$sidebartabs as $sideitem) {
 			if ($sideitem[0] !== null) {
 				$translation = Manager::getLanguageText($sideitem[0]);
 				if ($translation !== false) {
@@ -153,11 +161,47 @@ class BackendManager extends Manager {
 		if (!class_exists($classname)) {
 			throw new ArtphoxException('ERR_ACP_CC_NOT_FOUND', $classname);
 		}
-		$object = new $classname($params);
+		$object = new $classname();
 		if (! ($object instanceof ACPPage)) {
 			throw new ArtphoxException('ERR_ACP_PAGE_WRONG_TYPE', $classname);
 		}
 		return $object;
+	}
+
+	static function getSidebarData($slug) {
+		$id = null;
+		foreach (self::$sidebartabs as $key => $tab) {
+			if ($tab[1] == $slug) {
+				$id = $key;
+				break;
+			}
+		}
+		if ($id == null) {
+			$id = self::$defaultsidebartab;
+		}
+		$controllername = self::$sidebartabs[$id][2];
+		if (!is_file(get_include_path().'lib/model/back/modules/'.$controllername.'.class.php')) {
+			throw new ArtphoxException('ERR_ACP_CF_NOT_FOUND', $controllername);
+			//Exception, Log etc. muss noch gscheit gemacht werden
+		}
+
+		require_once 'lib/model/back/modules/'.$controllername.'.class.php';
+
+		//Möglichen Pfad von Klassennamen entfernen
+		$index = strrpos($controllername, '/');
+		if ($index === false) $index = 0;
+		else $index += 1;
+		$controllername = 'lib\\model\\back\\modules\\'.substr($controllername, $index);
+
+		if (!class_exists($controllername)) {
+			throw new ArtphoxException('ERR_ACP_CC_NOT_FOUND', $controllername);
+		}
+		$controller = new $controllername();
+		if (! ($controller instanceof SidebarController)) {
+			throw new ArtphoxException('ERR_ACP_CONTROLLER_WRONG_TYPE', $controllername);
+		}
+		$tree = $controller->createSidebarTree();
+		return $tree->getContent();
 	}
 
 }
