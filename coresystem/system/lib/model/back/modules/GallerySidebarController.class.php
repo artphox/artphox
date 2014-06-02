@@ -9,12 +9,12 @@ class GallerySidebarController extends SidebarController {
 	//Should return a SideBarTree
 	function createSidebarTree() {
 		$tree = new SidebarTree();
-		$tree->addType('0', true, true, true, true, '');
-		$tree->addElement(0, 1, 'Hallo');
-		$tree->addElement(0, 2, 'RekTest');
-		$tree->addElement(0, 3, 'Sub', 1);
-		$tree->addElement(0, 4, 'Sub', 1);
-		$tree->addElement(0, 5, 'XX');
+		$tree->addType('X', true, true, true, true, 'icons/img.png');
+		$tree->addElement('X', 1, 'Hallo');
+		$tree->addElement('X', 2, 'RekTest');
+		$tree->addElement('X', 3, 'Sub', 1);
+		$tree->addElement('X', 4, 'Sub', 1);
+		$tree->addElement('X', 5, 'XX');
 		return $tree;
 	}
 

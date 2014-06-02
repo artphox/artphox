@@ -6,8 +6,8 @@ class SidebarTree {
 	private $types = array();
 	private $elements = array();
 
-	function addType($id, $deletable, $draggable, $renamable, $folder, $icon) {
-		$this->types[] = array('id' => $id, 'deletable' => $deletable, 'draggable' => $draggable, 'renamable' => $renamable, 'folder' => $folder, 'icon' => $icon);
+	function addType($id, $deletable, $draggable, $renamable, $folder, $icon, $toggleon=null, $toggleoff=null) {
+		$this->types[$id] = array('deletable' => $deletable, 'draggable' => $draggable, 'renamable' => $renamable, 'folder' => $folder, 'icon' => $icon, 'toggleon' => $toggleon, 'toggleoff' => $toggleoff);
 	}
 
 	function addElement($type, $id, $text, $parentid=null, $toggled=false) {
