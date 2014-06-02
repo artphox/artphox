@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2014-05-27 19:48:06
+<?php /* Smarty version Smarty-3.1.11, created on 2014-06-02 14:27:47
          compiled from "C:\xampp\htdocs\apx\core03\system\tpl\admin\index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:242595381f4ee66cc46-51753628%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '907e17d0ff0ae73223e79aa3fe950df6debb820a' => 
     array (
       0 => 'C:\\xampp\\htdocs\\apx\\core03\\system\\tpl\\admin\\index.tpl',
-      1 => 1401212884,
+      1 => 1401712066,
       2 => 'file',
     ),
   ),
@@ -31,6 +31,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <head>
 	<title>Artphox - ACP</title>
 
+	<style>
+		.sidebarli {
+			cursor: pointer;
+		}
+
+		.sidebarli:hover {
+			background-color: #ccc;
+		}
+	</style>
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/acp.js"></script>
 	<script>
@@ -51,7 +61,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 		</div>
 		<div id="sidebarcontent">
-			<ul id="sidebarul">
+			<ul class="sidebarul">
 
 			</ul>
 		</div>

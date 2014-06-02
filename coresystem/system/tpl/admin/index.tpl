@@ -3,6 +3,16 @@
 <head>
 	<title>Artphox - ACP</title>
 
+	<style>
+		.sidebarli {
+			cursor: pointer;
+		}
+
+		.sidebarli:hover {
+			background-color: #ccc;
+		}
+	</style>
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/acp.js"></script>
 	<script>
@@ -20,7 +30,7 @@
 			{$sidebartabs}
 		</div>
 		<div id="sidebarcontent">
-			<ul id="sidebarul">
+			<ul class="sidebarul">
 
 			</ul>
 		</div>

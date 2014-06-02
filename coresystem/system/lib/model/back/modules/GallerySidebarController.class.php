@@ -20,7 +20,7 @@ class GallerySidebarController extends SidebarController {
 
 	//Should return false or the new HTML-Code for the stage
 	function onClick($elementid) {
-
+		return array('stage', $elementid);
 	}
 
 	//0 = denie, 1 = ok, 2 = reload

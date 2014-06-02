@@ -39,8 +39,8 @@ class SidebarTree {
 		}
 	}
 
-	function getContent() {
-		$str = '{ types: ';
+	function getContent($tabid) {
+		$str = '{ tabid: "'.$tabid.'", types: ';
 		$str .= json_encode($this->types);
 		$str .= ', elementdata: ';
 		$str .= json_encode($this->elements);

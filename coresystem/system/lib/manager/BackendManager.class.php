@@ -168,18 +168,11 @@ class BackendManager extends Manager {
 		return $object;
 	}
 
-	static function getSidebarData($slug) {
-		$id = null;
-		foreach (self::$sidebartabs as $key => $tab) {
-			if ($tab[1] == $slug) {
-				$id = $key;
-				break;
-			}
+	static function getSidebarController($tabid) {
+		if (!array_key_exists($tabid, self::$sidebartabs)) {
+			return null;
 		}
-		if ($id == null) {
-			$id = self::$defaultsidebartab;
-		}
-		$controllername = self::$sidebartabs[$id][2];
+		$controllername = self::$sidebartabs[$tabid][2];
 		if (!is_file(get_include_path().'lib/model/back/modules/'.$controllername.'.class.php')) {
 			throw new ArtphoxException('ERR_ACP_CF_NOT_FOUND', $controllername);
 			//Exception, Log etc. muss noch gscheit gemacht werden
@@ -200,8 +193,23 @@ class BackendManager extends Manager {
 		if (! ($controller instanceof SidebarController)) {
 			throw new ArtphoxException('ERR_ACP_CONTROLLER_WRONG_TYPE', $controllername);
 		}
+		return $controller;
+	}
+
+	static function getSidebarData($slug) {
+		$id = null;
+		foreach (self::$sidebartabs as $key => $tab) {
+			if ($tab[1] == $slug) {
+				$id = $key;
+				break;
+			}
+		}
+		if ($id == null) {
+			$id = self::$defaultsidebartab;
+		}
+		$controller = self::getSidebarController($id);
 		$tree = $controller->createSidebarTree();
-		return $tree->getContent();
+		return $tree->getContent($id);
 	}
 
 }
