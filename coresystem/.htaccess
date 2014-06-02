@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteRule ^admin(/.*)*$ system/scripts/backend_start.php?slug=$0 [L,QSA]
+	RewriteRule ^admin$ system/scripts/backend_redirect.php [L,QSA]
+	RewriteRule ^admin/(.*)*$ system/scripts/backend_start.php?slug=$0 [L,QSA]
 	RewriteRule ^([^.]*)$ system/scripts/frontend_start.php?slug=$1 [L,QSA]
 </IfModule>
