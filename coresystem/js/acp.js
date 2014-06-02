@@ -1,20 +1,21 @@
 var acp = {
 	sidebar: {
 		data: {types: {}, elementdata: {}}
-	}
+	},
+	stage: {}
 };
 
 acp.sendData = function(sdata, callback) {
 	$.ajax({
 		type: 'POST',
-		url: 'system/scripts/backend_change.php',
+		url: '../system/scripts/backend_change.php',
 		data: sdata,
 		dataType: 'text'
 	}).done(function(data, textStatus, jqXHR) {
 		try {
 			result = $.parseJSON(data);
 		} catch (e) {
-			alert('Fehler! Data konnte nicht in JSON umgewandelt werden.');
+			alert('Fehler! Data konnte nicht in JSON umgewandelt werden: ' + data);
 			return;
 		}
 		callback(result);
@@ -51,6 +52,10 @@ acp.sidebar.refresh = function() {
 	fillUl($(".sidebarul"), acp.sidebar.data.elementdata);
 };
 
+acp.stage.setStage = function(code) {
+	$("#stage").html(code);
+}
+
 $(document).ready(function() {
 	acp.sidebar.refresh();
 
@@ -61,7 +66,10 @@ $(document).ready(function() {
 				alert(result.error);
 			}
 			if (result.stage != null) {
-				alert('Stage: ' + result.stage);
+				acp.stage.setStage(result.stage);
+			}
+			if (result.dialog != null) {
+				//acp.stage.showDialog(result.dialog);
 			}
 		});
 	});

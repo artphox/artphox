@@ -13,8 +13,8 @@
 		}
 	</style>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/acp.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/acp.js"></script>
 	<script>
 		acp.sidebar.setData(
 			{$sidebardata}
