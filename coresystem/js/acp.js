@@ -54,7 +54,7 @@ acp.sidebar.refresh = function() {
 
 acp.stage.setStage = function(code) {
 	$("#stage").html(code);
-}
+};
 
 $(document).ready(function() {
 	acp.sidebar.refresh();

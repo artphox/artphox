@@ -1,7 +1,11 @@
 <?php
 error_reporting(E_ALL);
 
-set_include_path('../../system/');
+if (isset($includepath)) {
+	set_include_path($includepath);
+} else {
+	set_include_path('../../system/');
+}
 
 require_once 'data/ConfigData.php';
 require_once 'smarty/Smarty.class.php';

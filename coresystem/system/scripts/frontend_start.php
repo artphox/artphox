@@ -9,18 +9,19 @@ error_reporting(E_ALL);
 
 require 'globalinit.php';
 
-
-$slug = strtolower($_GET['slug']);
-if (isset($slug) && strlen($slug) > 0) {
-	//slug gegebenfalls um Slashes kürzen
-	$newl = strlen($slug)-1;
-	while ($slug[$newl] == '/') {
-		$slug = substr($slug, 0, $newl);
+if (!isset($slug)) {
+	$slug = strtolower($_GET['slug']);
+	if (isset($slug) && strlen($slug) > 0) {
+		//slug gegebenfalls um Slashes kürzen
 		$newl = strlen($slug)-1;
-	}
-	//Doppelte Slashes entfernen
-	while (strpos($slug, '//') !== false) {
-		$slug = str_replace('//', '/', $slug);
+		while ($slug[$newl] == '/') {
+			$slug = substr($slug, 0, $newl);
+			$newl = strlen($slug)-1;
+		}
+		//Doppelte Slashes entfernen
+		while (strpos($slug, '//') !== false) {
+			$slug = str_replace('//', '/', $slug);
+		}
 	}
 }
 
