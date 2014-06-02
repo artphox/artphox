@@ -2,6 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="res/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="res/js/acp.js"></script>
 <style>
 html, body {
 	height: 100%;
@@ -57,6 +59,12 @@ html, body {
 	overflow-y: scroll;
 	color: white;
 	color: #363636;
+}
+
+#stage-dialog {
+	display: none;
+	background-color: #eee;
+	position: absolute;
 }
 
 #stage-inner {
@@ -207,8 +215,11 @@ html, body {
 </div>
 <div id="stage">
 	<div id="stage-inner">
+		<div id="stage-dialog">
+
+		</div>
 		<ol class="thumblist">
-			<li class="thumbitem"><div class="thumb"><img src="banune.jpg"></div></li>
+			<li class="thumbitem"><div class="thumb" onClick="openDialog()"><img src="banune.jpg"></div></li>
 			<li class="thumbitem"><div class="thumb"><img src="banune2.jpeg"></div></li>
 			<li class="thumbitem"><div class="thumb"><img src="banune.jpg"></div></li>
 			<li class="thumbitem"><div class="thumb"><img src="banune.jpg"></div></li>
