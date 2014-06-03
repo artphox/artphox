@@ -89,7 +89,7 @@ class FrontendManager extends Manager {
 	Parameter $object: Modul-Objekt
 	Parameter $propertynames: Ein einzelner Propertyname oder ein Array von Propertynamen. Falls null übergeben wird, werden alle Properties geladen.
 	*/
-	static function loadModuleProperties($object, $propertynames=null) {
+	static function loadModuleProperties(&$object, $propertynames=null) {
 		try {
 			$statement = FrontendLoader::loadModuleProperties($object, $propertynames);
 			if ($statement !== false) {

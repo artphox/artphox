@@ -114,7 +114,7 @@ class FrontendLoader {
 		return $object;
 	}
 
-	static function loadModuleProperties($object, $propertynames) {
+	static function loadModuleProperties(&$object, $propertynames) {
 		//Object sollte vom Typ Module sein
 		//Propertynames darf null, string, oder string-array sein
 

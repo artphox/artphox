@@ -38,7 +38,7 @@ abstract class Style extends Module {
 
 	abstract function getWidgetAreas();
 
-	abstract function getPageCode($page);
+	abstract function getPageCode(&$page);
 
 }
 

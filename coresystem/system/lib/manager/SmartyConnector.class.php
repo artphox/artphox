@@ -53,7 +53,7 @@ class SmartyConnector {
 		throw $ex;
 	}
 
-	function apxMenu($params, $smarty) {
+	function apxMenu($params) {
 		try {
 			if (!isset($params['areaid'])) {
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_menu', 'areaid'));
@@ -64,7 +64,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxWidgetCollection($params, $smarty) {
+	function apxWidgetCollection($params) {
 		try {
 			if (!isset($params['areaid'])) {
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_widgetcollection', 'areaid'));
@@ -75,7 +75,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxPage($params, $smarty) {
+	function apxPage($params) {
 		try {
 			return FrontendManager::getPageCode();
 		} catch (ArtphoxException $ex) {
@@ -83,7 +83,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxWidget($params, $smarty) {
+	function apxWidget($params) {
 		try {
 			if (!isset($params['widgetid'])) {
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_widget', 'widgetid'));
@@ -94,7 +94,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxSystemProperty($params, $smarty) {
+	function apxSystemProperty($params) {
 		try {
 			if (!isset($params['key']))	{
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_systemproperty', 'key'));
@@ -105,7 +105,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxStyleProperty($params, $smarty) {
+	function apxStyleProperty($params) {
 		try {
 			if (!isset($params['key']))	{
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_styleproperty', 'key'));
@@ -116,7 +116,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxPageProperty($params, $smarty) {
+	function apxPageProperty($params) {
 		try {
 			if (!isset($params['key']))	{
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_pageproperty', 'key'));
@@ -127,7 +127,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxWidgetProperty($params, $smarty) {
+	function apxWidgetProperty($params) {
 		try {
 			if (!isset($params['widgetid']))	{
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_widgetproperty', 'widgetid'));
@@ -141,7 +141,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxConfigData($params, $smarty) {
+	function apxConfigData($params) {
 		try {
 			if (!isset($params['name'])) {
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_configdata', 'name'));
@@ -152,7 +152,7 @@ class SmartyConnector {
 		}
 	}
 
-	function apxLangText($params, $smarty) {
+	function apxLangText($params) {
 		try {
 			if (!isset($params['key']))	{
 				throw new ArtphoxException('ERR_MISSING_PARAMETER', array('apx_langtext', 'key'));
