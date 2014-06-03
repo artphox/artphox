@@ -60,7 +60,7 @@ $(document).ready(function() {
 	acp.sidebar.refresh();
 
 	$('.sidebarli').click(function() {
-		var id = $(this).attr("data-elid");
+		var id = $(this).attr('data-elid');
 		acp.sendData({command: 'sidebaritemclicked', tabid: acp.sidebar.data.tabid, elid: id}, function(result) {
 			if (result.error != null) {
 				alert(result.error);
@@ -70,6 +70,19 @@ $(document).ready(function() {
 			}
 			if (result.dialog != null) {
 				//acp.stage.showDialog(result.dialog);
+			}
+		});
+	});
+	$('.sidebarbutton').click(function() {
+		var id = $(this).attr('data-tabid');
+		acp.sendData({command: 'sidebartabchanged', tabid: id}, function(result) {
+			if (result.error != null) {
+				alert (result.error);
+			}
+			if (result.sidebardata != null) {
+				var data = $.parseJson(result.sidebardata);
+				acp.sidebar.setData(data);
+				acp.sidebar.refresh();
 			}
 		});
 	});

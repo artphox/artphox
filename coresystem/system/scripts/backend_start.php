@@ -38,7 +38,8 @@ require 'data/AdminData.php';
 try {
 	$smarty = BackendManager::createSmarty();
 	$navbar = BackendManager::getNavbarCode();
-	$sidebardata = BackendManager::getSidebarData($slug);
+	$sidebartabid = BackendManager::getSidebarTabId($slug);
+	$sidebardata = BackendManager::getSidebarData($sidebartabid);
 	$sidebartabs = BackendManager::getSidebarTabCode();
 	$stage = BackendManager::getStageCode($slug);
 	$smarty->assign('navbar', $navbar);

@@ -13,7 +13,7 @@ if (!isset($_POST['command'])) {
 	return;
 }
 
-use lib\manager\BackendManager;
+use lib\manager\BackendController;
 
 $command = $_POST['command'];
 if ($command == 'sidebaritemclicked') {
@@ -22,15 +22,19 @@ if ($command == 'sidebaritemclicked') {
 		echo json_encode($xml);
 		return;
 	}
-	$need_sidebar = true;
-	require 'data/AdminData.php';
-	$controller = BackendManager::getSidebarController($_POST['tabid']);
-	$result = $controller->onClick($_POST['elid']);
-	$xml->addChild($result[0], $result[1]);
-	echo json_encode($xml);
-	return;
+	BackendController::sideBarItemClicked($xml, $_POST['tabid'], $_POST['elid']);
 }
-$xml->addElement('error', 'Invalid Command!');
+elseif ($command == 'sidebartabchanged') {
+	if (!isset($_POST['tabid'])) {
+		$xml->addChild('error', 'Did not receive Parameters!');
+		echo json_encode($xml);
+		return;
+	}
+	BackendController::sideBarTabChanged($xml, $_POST['tabid']);
+}
+else {
+	$xml->addChild('error', 'Invalid Command!');
+}
 echo json_encode($xml);
 return;
 ?>
