@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Mai 2014 um 17:14
+-- Erstellungszeit: 03. Jun 2014 um 17:24
 -- Server Version: 5.5.32
 -- PHP-Version: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Datenbank: `apxcore003`
@@ -51,8 +45,10 @@ INSERT INTO `langitem` (`lait_lang`, `lait_code`, `lait_text`) VALUES
 ('EN', 'ACP_SIDEBAR_GALLERY', 'Gallery'),
 ('EN', 'ACP_SIDEBAR_PAGES', 'Pages'),
 ('EN', 'ERR_404', '<b>404 Error:</b> Page could not be found: {0}'),
-('EN', 'ERR_ACP_404', '<b>Error:</b> The requested Page could not be found!'),
-('EN', 'ERR_ACP_F_NOT_FOUND', '<b>Error:</b> Page-File not found: {0}'),
+('EN', 'ERR_ACP_404', '<b>Error:</b> Page could not be found: {0}'),
+('EN', 'ERR_ACP_CC_NOT_FOUND', '<b>Error:</b> Page-File exist, but Class could not be found: ''{0}'''),
+('EN', 'ERR_ACP_CF_NOT_FOUND', '<b>Error:</b> Page-File could not be found: ''{0}.class.php'''),
+('EN', 'ERR_ACP_PAGE_WRONG_TYPE', '<b>Error:</b> Page could not be loaded, because the created object of class ''{0}'' is not an ACPPage.'),
 ('EN', 'ERR_CC_NOT_FOUND', '<b>Error:</b> Classfile exists, but class was not found: {0}'),
 ('EN', 'ERR_CF_NOT_FOUND', '<b>Error:</b> Classfile not found: {0}'),
 ('EN', 'ERR_CONSTANT_NOT_DEFINED', '<b>Error:</b> Constant ''{0}'' is not defined.'),
@@ -65,7 +61,6 @@ INSERT INTO `langitem` (`lait_lang`, `lait_code`, `lait_text`) VALUES
 ('EN', 'ERR_NO_MENU_FOUND', '<b>Error:</b> No Menu was found for MenuArea #{0}'),
 ('EN', 'ERR_NO_WIDGETCOLLECTION_FOUND', '<b>Error:</b> No WidgetCollection was found for WidgetArea #{0}'),
 ('EN', 'ERR_PAGE_NOT_LOADED', '<b>Internal Error:</b> Page is not loaded yet.'),
-('EN', 'ERR_PAGE_NOT_SUPPORTED', '<b>Error:</b> PageType ''{0}'' is not supported by Style ''{1}''.'),
 ('EN', 'ERR_PROPERTY_NOT_FOUND', '<b>Internal Error:</b> Property ''{2}'' of {0}-Object #''{1}'' wasn''t loaded or doesn''t exist.'),
 ('EN', 'ERR_SITE_NOT_LOADED', '<b>Internal Error:</b> Site is not loaded yet.'),
 ('EN', 'ERR_SN_NOT_RECEIVED', '<b>Error:</b> Did not receive a statename.'),
@@ -204,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `pagetype` (
 --
 
 INSERT INTO `pagetype` (`pt_id`, `pt_configname`, `pt_title`, `pt_description`) VALUES
-(1, 'custompage', 'CustomPage', 'Custom Content');
+(1, 'CustomPage', 'CustomPage', 'Custom Content');
 
 -- --------------------------------------------------------
 
@@ -487,7 +482,3 @@ ALTER TABLE `widgetobject`
 --
 ALTER TABLE `widgetobjectproperty`
   ADD CONSTRAINT `fk_WidgetObjectProperty_WidgetObject1` FOREIGN KEY (`wop_object`) REFERENCES `widgetobject` (`wop_objectid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
