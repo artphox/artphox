@@ -44,6 +44,7 @@ class FrontendLoader {
 			if ($pageresult == false) {
 				throw new ArtphoxException('ERR_404', $slug.' (#'.$defaultid.')');
 			}
+			$pageresult['sta_extra'] = null;
 		}
 
 		//Ansonsten: Weitersuchen!
@@ -51,7 +52,7 @@ class FrontendLoader {
 
 			//Nach einer Page suchen, die diesem Slug entspricht
 			$statement = $pdo->prepare(
-				   'SELECT p_id, p_displaytitle, pt_configname 
+				   'SELECT p_id, p_displaytitle, pt_configname, sta_extra
 					FROM Page 
 					JOIN PageType ON p_type = pt_id
 					JOIN State ON p_id = sta_page
@@ -63,7 +64,7 @@ class FrontendLoader {
 				throw new ArtphoxException('ERR_404', $slug);
 			}
 		}
-		$pageobject = new Page(array('id' => $pageresult['p_id'], 'displaytitle' => $pageresult['p_displaytitle'], 'configname' => $pageresult['pt_configname']));
+		$pageobject = new Page(array('id' => $pageresult['p_id'], 'displaytitle' => $pageresult['p_displaytitle'], 'configname' => $pageresult['pt_configname'], 'extra' => $pageresult['sta_extra']));
 		if (!($pageobject instanceof Page)) {	throw new ArtphoxException('ERR_MODULE_WRONG_TYPE', array('Page', $pageresult['pt_classname'])); }
 
 		//-----------------------

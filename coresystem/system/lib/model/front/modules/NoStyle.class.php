@@ -8,6 +8,11 @@ use lib\model\front\core\DefaultPageDisplay;
 use lib\manager\FrontendManager;
 use lib\universal\ArtphoxException;
 
+/*
+NoStyle ist eine sehr simple Form von Style, weil sie eigentlich garkeiner ist.
+HeadCode und BodyCode werden einfach in der Datenbank gespeichert. Genauso CSS.
+Es sind 5 MenuAreas und 5 WidgetAreas vorhanden.
+*/
 class NoStyle extends Style {
 
 	protected $menuareas;
@@ -57,27 +62,7 @@ class NoStyle extends Style {
 	}
 
 	function getPageCode(&$page) {
-		$classname = $page->getConfigName();
-		if (!is_file(get_include_path().'lib/model/front/modules/'.$classname.'.class.php')) {
-			throw new ArtphoxException('ERR_CF_NOT_FOUND', $classname);
-		}
-
-		require_once 'lib/model/front/modules/'.$classname.'.class.php';
-
-		//Möglichen Pfad von Klassennamen entfernen
-		$index = strrpos($classname, '/');
-		if ($index === false) $index = 0;
-		else $index += 1;
-		$classname = 'lib\\model\\front\\modules\\'.substr($classname, $index);
-
-		if (!class_exists($classname)) {
-			throw new ArtphoxException('ERR_CC_NOT_FOUND', $classname);
-		}
-		$display = new $classname();
-		if (! ($display instanceof DefaultPageDisplay)) {
-			throw new ArtphoxException('ERR_MODULE_WRONG_TYPE', array('DefaultPageDisplay', $classname));
-		}
-		return $display->printDefaultCode($page);
+		return $page->getDefaultCode();
 	}
 }
 

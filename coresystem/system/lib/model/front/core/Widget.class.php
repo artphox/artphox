@@ -11,8 +11,6 @@ abstract class Widget extends Module {
 
 	abstract function getFrontendCode();
 
-	abstract function getConfigPage();
-
 }
 
 ?>

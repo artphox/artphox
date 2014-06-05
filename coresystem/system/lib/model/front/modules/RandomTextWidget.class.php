@@ -16,9 +16,5 @@ class RandomTextWidget extends Widget {
 		$sentence = self::$sentencearray[rand(0, count(self::$sentencearray)-1)];
 		echo '<span style="border: 1px solid black; padding: 3px;">'.utf8_decode($sentence).'</span>';
 	}
-
-	function getConfigPage() {
-		return "";
-	}
 }
 ?>

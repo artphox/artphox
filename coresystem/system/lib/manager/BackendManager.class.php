@@ -23,7 +23,6 @@ class BackendManager extends Manager {
 		return $smarty;
 	}
 
-	//Sollte um einen Parameter erweitert werden. Statt $link: $href und $onclick
 	static function addNavbarItem($text, $img, $link) {
 		self::$navbar[] = array($text, $img, $link);
 	}

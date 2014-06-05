@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Jun 2014 um 17:24
+-- Erstellungszeit: 05. Jun 2014 um 19:12
 -- Server Version: 5.5.32
 -- PHP-Version: 5.4.19
 
@@ -165,7 +165,6 @@ CREATE TABLE IF NOT EXISTS `pageproperty` (
   `pp_page` int(10) unsigned NOT NULL,
   `pp_key` varchar(45) NOT NULL,
   `pp_value` text,
-  `pp_cssAvailable` tinyint(1) NOT NULL,
   PRIMARY KEY (`pp_page`,`pp_key`),
   KEY `fk_PageProperty_Page1_idx` (`pp_page`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -174,11 +173,11 @@ CREATE TABLE IF NOT EXISTS `pageproperty` (
 -- Daten für Tabelle `pageproperty`
 --
 
-INSERT INTO `pageproperty` (`pp_page`, `pp_key`, `pp_value`, `pp_cssAvailable`) VALUES
-(1, 'html', '<p>\n<h1>Willkommen im Portfolio!</h1>\nBlablablablabla blibliblobloblu Schwabbeldiewabbeldiewuh!\n</p>', 0),
-(1, 'smarty', '1', 0),
-(2, 'html', '<p><h1>Über diese Seite</h1>\nWidget-Test:<br>\n{apx_widget widgetid="2"}<br><br>\nUm diese Seite mit einem Bild zu beschreiben:<br>\n<img src="http://i.imgur.com/6FUzuNZ.gif" alt="UAAH">\n</p>', 0),
-(2, 'smarty', '1', 0);
+INSERT INTO `pageproperty` (`pp_page`, `pp_key`, `pp_value`) VALUES
+(1, 'html', '<p>\n<h1>Willkommen im Portfolio!</h1>\nBlablablablabla blibliblobloblu Schwabbeldiewabbeldiewuh!\n</p>'),
+(1, 'smarty', '1'),
+(2, 'html', '<p><h1>Über diese Seite</h1>\nWidget-Test:<br>\n{apx_widget widgetid="2"}<br><br>\nUm diese Seite mit einem Bild zu beschreiben:<br>\n<img src="http://i.imgur.com/6FUzuNZ.gif" alt="UAAH">\n</p>'),
+(2, 'smarty', '1');
 
 -- --------------------------------------------------------
 
@@ -389,7 +388,6 @@ CREATE TABLE IF NOT EXISTS `widgetobjectproperty` (
   `wop_object` int(10) unsigned NOT NULL,
   `wop_key` varchar(45) NOT NULL,
   `wop_value` text,
-  `wop_cssAvailable` tinyint(1) NOT NULL,
   PRIMARY KEY (`wop_object`,`wop_key`),
   KEY `fk_WidgetObjectProperty_WidgetObject1_idx` (`wop_object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
