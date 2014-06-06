@@ -28,6 +28,7 @@ if (!isset($slug)) {
 	}
 }
 
+use lib\universal\DataAccess;
 use lib\manager\BackendManager;
 
 $need_navbar = true;
@@ -40,8 +41,10 @@ try {
 	$navbar = BackendManager::getNavbarCode();
 	$sidebartabid = BackendManager::getSidebarTabId($slug);
 	$sidebardata = BackendManager::getSidebarData($sidebartabid);
-	$sidebartabs = BackendManager::getSidebarTabCode();
+	$sidebartabs = BackendManager::getSidebarTabs();
 	$stage = BackendManager::getStageCode($slug);
+	$baseurl = DataAccess::getBaseURL($slug);
+	$smarty->assign('baseurl', $baseurl);
 	$smarty->assign('navbar', $navbar);
 	$smarty->assign('sidebardata', $sidebardata);
 	$smarty->assign('sidebartabs', $sidebartabs);

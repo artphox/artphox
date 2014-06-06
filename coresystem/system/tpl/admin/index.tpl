@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Artphox - ACP</title>
+	<base href="{$baseurl}">
 
 	<style>
 		.sidebarli {
@@ -35,7 +36,11 @@
 	</div>
 	<div id="sidebar">
 		<div id="sidebartabs">
-			{$sidebartabs}
+			<div id="sidebarhead">
+			{foreach key=id item=sideitem from=$sidebartabs}
+				<div class="sidebarbutton" data-tabid="{$id}">{$sideitem[0]}</div>
+			{/foreach}
+			</div>
 		</div>
 		<div id="sidebarcontent">
 			<ul class="sidebarul">

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2014-06-03 16:40:26
+<?php /* Smarty version Smarty-3.1.11, created on 2014-06-06 17:57:30
          compiled from "C:\xampp\htdocs\GitHub\artphox\coresystem\system\tpl\admin\index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:22352538ddd791270b9-96935227%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'a4282cd4083e328eab52147e7662ec024664a207' => 
     array (
       0 => 'C:\\xampp\\htdocs\\GitHub\\artphox\\coresystem\\system\\tpl\\admin\\index.tpl',
-      1 => 1401806424,
+      1 => 1402070184,
       2 => 'file',
     ),
   ),
@@ -19,9 +19,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'unifunc' => 'content_538ddd79159d42_70318985',
   'variables' => 
   array (
+    'baseurl' => 0,
     'sidebardata' => 0,
     'navbar' => 0,
     'sidebartabs' => 0,
+    'id' => 0,
+    'sideitem' => 0,
     'stage' => 0,
   ),
   'has_nocache_code' => false,
@@ -30,6 +33,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <html>
 <head>
 	<title>Artphox - ACP</title>
+	<base href="<?php echo $_smarty_tpl->tpl_vars['baseurl']->value;?>
+">
 
 	<style>
 		.sidebarli {
@@ -65,8 +70,19 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</div>
 	<div id="sidebar">
 		<div id="sidebartabs">
-			<?php echo $_smarty_tpl->tpl_vars['sidebartabs']->value;?>
-
+			<div id="sidebarhead">
+			<?php  $_smarty_tpl->tpl_vars['sideitem'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['sideitem']->_loop = false;
+ $_smarty_tpl->tpl_vars['id'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['sidebartabs']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['sideitem']->key => $_smarty_tpl->tpl_vars['sideitem']->value){
+$_smarty_tpl->tpl_vars['sideitem']->_loop = true;
+ $_smarty_tpl->tpl_vars['id']->value = $_smarty_tpl->tpl_vars['sideitem']->key;
+?>
+				<div class="sidebarbutton" data-tabid="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['sideitem']->value[0];?>
+</div>
+			<?php } ?>
+			</div>
 		</div>
 		<div id="sidebarcontent">
 			<ul class="sidebarul">

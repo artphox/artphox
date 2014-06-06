@@ -23,7 +23,9 @@ class BackendController {
 			$need_sidebar = true;
 			require 'data/AdminData.php';
 			$data = BackendManager::getSidebarData($_POST['tabid']);
+			$slug = BackendManager::getSidebarSlug($_POST['tabid']);
 			$xml->addChild('sidebardata', $data);
+			$xml->addChild('slug', $slug);
 		} catch (\Exception $ex) {
 			$xml->addChild('error', strval($ex));
 		}

@@ -2,7 +2,8 @@ var acp = {
 	sidebar: {
 		data: {types: {}, elementdata: {}}
 	},
-	stage: {}
+	stage: {},
+	adaption: {}
 };
 
 acp.sendData = function(sdata, callback) {
@@ -28,6 +29,45 @@ Icon-Daten sollten vorgeladen werden.
 */
 acp.sidebar.setData = function(data) {
 	acp.sidebar.data = data;
+};
+
+acp.sidebar.init = function() {
+	$('.sidebarli').click(function() {
+		var id = $(this).attr('data-elid');
+		var data = {command: 'sidebaritemclicked', tabid: acp.sidebar.data.tabid, elid: id};
+		acp.sendData(data, function(result) {
+			if (result.error != null) {
+				alert(result.error);
+			}
+			if (result.stage != null) {
+				acp.stage.setStage(result.stage);
+			}
+			if (result.dialog != null) {
+				//acp.stage.showDialog(result.dialog);
+			}
+			if (result.slug != null) {
+				acp.adaption.setURL(result.slug, {"data": data, "callback": this});
+			}
+		});
+	});
+	$('.sidebarbutton').click(function() {
+		var id = $(this).attr('data-tabid');
+		var data = {command: 'sidebartabchanged', tabid: id};
+		acp.sendData(data, function(result) {
+			if (result.error != null) {
+				alert (result.error);
+			}
+			if (result.sidebardata != null) {
+				var data = $.parseJSON(result.sidebardata);
+				acp.sidebar.setData(data);
+				acp.sidebar.refresh();
+			}
+			if (result.slug != null) {
+				acp.adaption.setURL(result.slug, {"data": data, "callback": this});
+			}
+		});
+	});
+	acp.sidebar.refresh();
 };
 
 acp.sidebar.refresh = function() {
@@ -56,34 +96,21 @@ acp.stage.setStage = function(code) {
 	$("#stage").html(code);
 };
 
-$(document).ready(function() {
-	acp.sidebar.refresh();
+acp.adaption.init = function() {
+	$(window).bind('popstate', function(event) {
+		event.preventDefault();
+		var state = event.originalEvent.state;
+		acp.sendData(state.data, state.callback);
+	});
+};
 
-	$('.sidebarli').click(function() {
-		var id = $(this).attr('data-elid');
-		acp.sendData({command: 'sidebaritemclicked', tabid: acp.sidebar.data.tabid, elid: id}, function(result) {
-			if (result.error != null) {
-				alert(result.error);
-			}
-			if (result.stage != null) {
-				acp.stage.setStage(result.stage);
-			}
-			if (result.dialog != null) {
-				//acp.stage.showDialog(result.dialog);
-			}
-		});
-	});
-	$('.sidebarbutton').click(function() {
-		var id = $(this).attr('data-tabid');
-		acp.sendData({command: 'sidebartabchanged', tabid: id}, function(result) {
-			if (result.error != null) {
-				alert (result.error);
-			}
-			if (result.sidebardata != null) {
-				var data = $.parseJson(result.sidebardata);
-				acp.sidebar.setData(data);
-				acp.sidebar.refresh();
-			}
-		});
-	});
+acp.adaption.setURL = function(slug, data) {
+	var base = $("base").attr("href");
+	history.pushState(data, null, base+slug);
+};
+
+$(document).ready(function() {
+	acp.sidebar.init();
+	acp.adaption.init();
+	
 });

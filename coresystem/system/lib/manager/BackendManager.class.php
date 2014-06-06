@@ -101,14 +101,8 @@ class BackendManager extends Manager {
 		return $translation;
 	}
 
-	static function getSidebarTabCode() {
-		$sidebar = self::translateSidebar();
-		$str = '<div id="sidebarhead">';
-		foreach ($sidebar as $id => $sideitem) {
-			$str .= '<div class="sidebarbutton" data-tabid="'.$id.'">'.$sideitem[0].'</div>';
-		}
-		$str .= '</div>';
-		return $str;
+	static function getSidebarTabs() {
+		return self::translateSidebar();
 	}
 
 	private static function translateSidebar() {
@@ -213,6 +207,13 @@ class BackendManager extends Manager {
 		$controller = self::getSidebarController($id);
 		$tree = $controller->createSidebarTree();
 		return $tree->getContent($id);
+	}
+
+	static function getSidebarSlug($id) {
+		if ($id == null) {
+			$id = self::$defaultsidebartab;
+		}
+		return self::$sidebartabs[$id][1];
 	}
 
 }
