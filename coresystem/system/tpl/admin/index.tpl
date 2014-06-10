@@ -20,6 +20,7 @@
 		.sidebarbutton:hover {
 			background-color: #fcc;
 		}
+
 	</style>
 
 	<script src="../js/jquery.min.js"></script>

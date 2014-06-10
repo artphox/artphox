@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2014-06-06 17:57:30
+<?php /* Smarty version Smarty-3.1.11, created on 2014-06-10 20:59:40
          compiled from "C:\xampp\htdocs\GitHub\artphox\coresystem\system\tpl\admin\index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:22352538ddd791270b9-96935227%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'a4282cd4083e328eab52147e7662ec024664a207' => 
     array (
       0 => 'C:\\xampp\\htdocs\\GitHub\\artphox\\coresystem\\system\\tpl\\admin\\index.tpl',
-      1 => 1402070184,
+      1 => 1402426780,
       2 => 'file',
     ),
   ),
@@ -52,6 +52,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		.sidebarbutton:hover {
 			background-color: #fcc;
 		}
+
 	</style>
 
 	<script src="../js/jquery.min.js"></script>
