@@ -4,24 +4,8 @@
 	<title>Artphox - ACP</title>
 	<base href="{$baseurl}">
 
-	<style>
-		.sidebarli {
-			cursor: pointer;
-		}
-
-		.sidebarli:hover {
-			background-color: #ccc;
-		}
-
-		.sidebarbutton {
-			cursor: pointer;
-		}
-
-		.sidebarbutton:hover {
-			background-color: #fcc;
-		}
-
-	</style>
+	<link rel="stylesheet" href="../styles/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/admin.css">
 
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/acp.js"></script>
@@ -32,25 +16,35 @@
 	</script>
 </head>
 <body>
-	<div id="navbar">
-		{$navbar}
+
+<div id="wrapper">
+	<div id="header">
+		<div id="navbar">
+			{$navbar}
+		</div>
+		<div id="logo"><img src="artphox.png" alt="logo"></div>
+	</div>
+	<div id="tabnav">
+		<div id="tabs">
+			{foreach key=id item=sideitem from=$sidebartabs}
+				<div class="tabitem" data-tabid="{$id}">{$sideitem[0]}</div>
+			{/foreach}
+		</div>
+		<div id="stagenav">
+
+		</div>
 	</div>
 	<div id="sidebar">
-		<div id="sidebartabs">
-			<div id="sidebarhead">
-			{foreach key=id item=sideitem from=$sidebartabs}
-				<div class="sidebarbutton" data-tabid="{$id}">{$sideitem[0]}</div>
-			{/foreach}
-			</div>
-		</div>
-		<div id="sidebarcontent">
-			<ul class="sidebarul">
-
-			</ul>
-		</div>
+		<ul class="sidebar"></ul>
 	</div>
 	<div id="stage">
-		{$stage}
+		<div id="stage-inner">
+			<div id="stage-dialog">
+			</div>
+			{$stage}
+		</div>
 	</div>
+
+</div>
 </body>
 </html>

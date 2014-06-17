@@ -1,0 +1,182 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+#wrapper {
+	height: 100%;
+}
+
+#header {
+	height: 95px;
+	position: absolute;
+	left: 0; top: 0;
+	background-color: #f1f1f1;
+	width: 100%;
+}
+
+#navbar {
+	height: 60px;
+	float: left;
+	padding-left: 20px;
+}
+
+#navbar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#navbar > ul > li {
+	text-align: center;
+	float: left;
+	font-size: 12px;
+	display: block;
+	min-width: 90px;
+}
+
+#navbar > ul > li img {
+	display: block;
+	margin: 0px auto;
+}
+
+#navbar > ul > li > ul {
+	display: none;
+}
+
+#logo {
+	height: 60px;
+	float: right;
+}
+
+#tabnav {
+	height: 30px;
+	position: absolute;
+	left: 0; top: 0;
+	background-color: #5a5a5a;
+	width: 100%;
+	margin-top: 65px;
+	cursor: pointer;
+}
+
+#stage {
+	height: 100%;
+	box-sizing: border-box;
+	border-top: 95px solid transparent;
+	border-bottom: 20px solid transparent;
+	background-color: #ffffff;
+	min-height: 500px;
+	overflow-y: scroll;
+	color: white;
+	color: #363636;
+}
+
+#stage-dialog {
+	display: none;
+	background-color: #eee;
+	position: absolute;
+}
+
+#stage-inner {
+	padding-left: 35px;
+}
+
+.thumb {
+	height: 180px !important;
+	width: 180px;
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+
+.thumblist
+{
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px 0;
+  overflow: auto;
+}
+
+.thumbitem
+{
+  display: inline; /* IE doubled float-margin bug */
+  float: left;
+  margin: 8px 0 0 8px;
+  padding: 0;
+}
+
+
+
+#sidebar {
+	width: 250px;
+	height: 100%;
+	box-sizing: border-box;
+	border-top: 95px solid transparent;
+	border-bottom: 20px solid transparent;
+	background-color: #eeeeee;
+	min-height: 500px;
+	overflow-y: scroll;
+	color: white;
+	float: left;
+	color: #222222;
+}
+
+ul.sidebar {
+	padding-left: 15px;
+	padding-top: 15px;
+	list-style: none;
+}
+
+.glyphicon {
+	padding-right: 20px;
+}
+
+li.sidebar {
+	padding-top: 5px;
+	cursor: pointer;
+}
+
+li.sidebar:hover {
+	font-style: italic;
+}
+
+li.sidebar img {
+	width: 20px;
+	margin-right: 10px;
+}
+
+ul.sidebar > ul {
+	display: none;
+}
+
+#tabs {
+	max-width: 250px;
+}
+
+.tabitem {
+	width: 83px;
+	background-color: #f7c432;
+	height: 30px;
+	float: left;
+}
+
+.tabitem:hover {
+	width: 83px;
+	background-color: #ea9a27;
+	height: 30px;
+	float: left;
+}
+
+.tabactive {
+	width: 83px;
+	background-color: #ea9a27;
+	height: 30px;
+	float: left;	
+}
+
+#footer {
+	height: 20px;
+	width: 100%;
+	background-color: blue;
+}

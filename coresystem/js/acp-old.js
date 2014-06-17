@@ -1,9 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
-- Titel:          js/acp.js
-- Autor:          Simon Fraiss
-- Beschreibung:   Wesentliche JavaScript-Datei fürs Artphox-ACP
+ACP.JS VOR 17.06. Inklusive Adaption
 */
 
 //--------------------------------------------------------------ACP-Variable definieren----------------------------------------------------------------------------
@@ -72,18 +70,14 @@ acp.server.react = function(result, adaptiondata) {
 		acp.sidebar.setData(data);
 		acp.sidebar.refresh();
 	}
-	if (adaptiondata !== null) {
-		acp.adaption.setState(adaptiondata);
+	if (adaptiondata !== null && result.slug != null) {
+		acp.adaption.setURL(result.slug, adaptiondata);
 	}
 };
 
 /*
 acp.adaption
-Funktionen für die ACP-seitige Adaption.
-Diese funktioniert derzeit ohne URL-Anpassung (halte ich für unnötig).
-Einzige Aufgabe der Adaption ist daher die Funktionalität des Zurück-Buttons zu gewährleisten.
-Derzeit wird diese sowohl beim Tab-Wechsel als auch bei Stage-Änderung eingesetzt.
-Es lässt sich in Frage stellen ob beides nötig ist.
+Funktionen für die ACP-seitige Adaption
 */
 
 /*
@@ -100,11 +94,13 @@ acp.adaption.init = function() {
 
 /*
 acp.adaption.setURL
-Erzeugt einen neuen History-Eintrag, zu welchem später zurück navigiert werden kann. URL wird nicht geändert!
-data: An den Server zu sendende Data, falls in der History auf diesen State zurück navigiert wird gedrückt wird (z.B. durch Zurück-Button).
+Erzeugt einen neuen History-Eintrag und passt die URL an, ohne die Seite zu laden.
+slug: Neuer Slug, der an fixe Base-URL angehängt wird
+data: An den Server zu sendende Data, falls der Zurück-Button gedrückt wird.
 */
-acp.adaption.setState = function(data) {
-	history.pushState(data, null, location.href);
+acp.adaption.setURL = function(slug, data) {
+	var base = $("base").attr("href");
+	history.pushState(data, null, base+slug);
 };
 
 /*
@@ -127,12 +123,12 @@ acp.sidebar.init
 Init-Funktion des Sidebars. Setzt Eventhandler und ruft refresh auf, um den Tree aufzubauen
 */
 acp.sidebar.init = function() {
-	$('#sidebar').delegate('li.sidebar', 'click', function() {
+	$('#sidebar').delegate('.sidebarli', 'click', function() {
 		var id = $(this).attr('data-elid');
 		var data = {command: 'sidebaritemclicked', tabid: acp.sidebar.data.tabid, elid: id};
 		acp.server.sendData(data);
 	});
-	$('#tabnav').delegate('.tabitem', 'click', function() {
+	$('#sidebar').delegate('.sidebarbutton', 'click', function() {
 		var id = $(this).attr('data-tabid');
 		var data = {command: 'sidebartabchanged', tabid: id};
 		acp.server.sendData(data);
@@ -149,7 +145,7 @@ Baut Sidebar-Tree neu auf
 acp.sidebar.refresh = function() {
 	function fillUl(ul, elementdata) {
 		for (var key in elementdata) {
-			var li = $('<li class="sidebar" data-elid="' + elementdata[key].id + '">' + elementdata[key].text + '</li>');
+			var li = $('<li class="sidebarli" data-elid="' + elementdata[key].id + '">' + elementdata[key].text + '</li>');
 			if (elementdata[key].type in acp.sidebar.data.types) {
 				var type = acp.sidebar.data.types[elementdata[key].type];
 				var iconimg = $('<img src="'+type.icon+'" alt="">');
@@ -157,15 +153,15 @@ acp.sidebar.refresh = function() {
 			}
 			ul.append(li);
 			if (('elementdata' in elementdata[key]) && elementdata[key].elementdata.length !== 0) {
-				var newul = $('<ul class="sidebar"></ul>');
+				var newul = $('<ul class="sidebarul"></ul>');
 				fillUl(newul, elementdata[key].elementdata);
 				ul.append(newul);
 			}
 		}
 	}
 
-	$('ul.sidebar').empty();
-	fillUl($("ul.sidebar"), acp.sidebar.data.elementdata);
+	$('.sidebarul').empty();
+	fillUl($(".sidebarul"), acp.sidebar.data.elementdata);
 };
 
 /*
