@@ -173,7 +173,7 @@ acp.stage
 Alles was mit der Stage allgemein zu tun hat
 */
 acp.stage.setStage = function(code) {
-	$("#stage").html(code);
+	$("#stage-inner").html(code);
 };
 
 /*
